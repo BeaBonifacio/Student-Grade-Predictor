@@ -1,4 +1,3 @@
-/* Global Theme Colors */
 :root {
   --navy: #0a2342;
   --light-blue: #a8d0e6;
@@ -39,7 +38,7 @@ h1 {
   padding: 20px;
   box-shadow: 0 0 10px rgba(160, 200, 255, 0.2);
   flex: 1;
-  min-width: 300px;
+  min-width: 320px;
 }
 
 .left-panel {
@@ -48,19 +47,20 @@ h1 {
 
 .right-panel {
   flex: 3;
+  overflow-x: auto;
 }
 
-input,
-button {
+input, select, button {
+  display: block;
+  width: 100%;
   padding: 10px;
-  margin: 5px 0;
+  margin: 8px 0;
   border-radius: 5px;
   border: none;
   font-size: 1rem;
 }
 
-input {
-  width: calc(100% - 20px);
+input, select {
   background-color: var(--white);
   color: var(--black);
 }
@@ -69,7 +69,6 @@ button {
   background-color: var(--sky-blue);
   color: var(--white);
   cursor: pointer;
-  width: 100%;
 }
 
 button:hover {
@@ -77,17 +76,16 @@ button:hover {
   color: var(--black);
 }
 
-#assessmentList {
-  list-style: none;
-  padding-left: 0;
-}
-
-#chart-container {
+table {
   width: 100%;
-  max-width: 600px;
+  border-collapse: collapse;
   margin-top: 20px;
+  background: #fefefe;
+  color: #000;
 }
 
-p {
-  margin-top: 10px;
+th, td {
+  padding: 8px;
+  border: 1px solid #ccc;
+  text-align: center;
 }
