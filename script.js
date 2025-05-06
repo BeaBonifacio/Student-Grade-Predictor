@@ -1,101 +1,116 @@
-const assessments = []
+let subject = "";
+let assessments = [];
+
+function startSubject() {
+  subject = document.getElementById("subjectName").value.trim();
+  if (!subject) {
+    alert("Please enter a subject name.");
+    return;
+  }
+  document.getElementById("assessmentSection").style.display = "block";
+  renderTable(); // Show empty subject row
+}
 
 function addAssessment() {
-  const name = document.getElementById("name").value
-  const score = parseFloat(document.getElementById("score").value)
-  const weight = parseFloat(document.getElementById("weight").value) || 0
+  const category = document.getElementById("category").value;
+  const name = document.getElementById("assessmentName").value.trim();
+  const weight = parseFloat(document.getElementById("weight").value);
+  const scoreRaw = document.getElementById("score").value;
+  const score = scoreRaw ? parseFloat(scoreRaw) : null;
 
-  if (!name || isNaN(score)) {
-    alert("Please fill in valid name and score.")
-    return
+  if (!name || isNaN(weight)) {
+    alert("Please enter a valid name and weight.");
+    return;
   }
 
-  assessments.push({ name, score, weight })
-  renderAssessments()
-  updateChart()
+  assessments.push({ category, name, weight, score });
+
+  document.getElementById("assessmentName").value = "";
+  document.getElementById("weight").value = "";
+  document.getElementById("score").value = "";
+
+  renderTable();
 }
 
-function renderAssessments() {
-  const list = document.getElementById("assessmentList")
-  list.innerHTML = assessments
-    .map((a) => `<li>${a.name}: ${a.score}% (Weight: ${a.weight}%)</li>`)
-    .join("")
-}
+function renderTable() {
+  const goal = parseFloat(document.getElementById("goal").value) || null;
 
-function predictNeededGrade() {
-  const goal = parseFloat(document.getElementById("goal").value)
-  if (isNaN(goal)) {
-    alert("Enter a valid target grade.")
-    return
+  const categoryData = {};
+  let overallTotal = 0;
+  let overallWeight = 0;
+  let rows = "";
+
+  for (const a of assessments) {
+    if (!categoryData[a.category]) categoryData[a.category] = [];
+    categoryData[a.category].push(a);
   }
 
-  let totalWeight = assessments.reduce((sum, a) => sum + a.weight, 0)
-  const knownWeightedSum = assessments.reduce(
-    (sum, a) => sum + (a.score * a.weight) / 100,
-    0,
-  )
+  for (const [cat, items] of Object.entries(categoryData)) {
+    let total = 0, weightSum = 0, missingWeight = 0;
 
-  const remainingWeight = 100 - totalWeight
-  if (remainingWeight <= 0) {
-    document.getElementById("predictionResult").innerText =
-      "All assessments entered. Target already calculated."
-    return
+    for (const item of items) {
+      if (item.score !== null) {
+        total += (item.score * item.weight) / 100;
+        weightSum += item.weight;
+      } else {
+        missingWeight += item.weight;
+      }
+
+      rows += `
+        <tr>
+          <td>${item.category}</td>
+          <td>${item.name}</td>
+          <td>${item.weight}%</td>
+          <td>${item.score !== null ? item.score + "%" : "Missing"}</td>
+        </tr>`;
+    }
+
+    const categoryPercent = (total / weightSum) * 100 || 0;
+    overallTotal += total;
+    overallWeight += weightSum;
+
+    const neededScore = goal && missingWeight > 0
+      ? ((goal - (overallTotal / overallWeight * 100)) * (overallWeight + missingWeight) + goal * missingWeight) / missingWeight
+      : "-";
+
+    rows += `
+      <tr style="background-color:#e8f4ff;">
+        <td colspan="2"><strong>${cat} Summary</strong></td>
+        <td><strong>${weightSum + missingWeight}%</strong></td>
+        <td><strong>${categoryPercent.toFixed(2)}%</strong></td>
+      </tr>
+      ${
+        missingWeight > 0 && goal
+          ? `<tr style="background-color:#fff9e6;">
+              <td colspan="3">Required Avg in Missing (${missingWeight}%)</td>
+              <td>${!isNaN(neededScore) ? neededScore.toFixed(2) + "%" : "-"}</td>
+            </tr>`
+          : ""
+      }
+    `;
   }
 
-  const needed = ((goal - knownWeightedSum) * 100) / remainingWeight
+  const overallPercent = (overallTotal / overallWeight) * 100;
 
-  let status = ""
-  if (needed > 100) status = "Unlikely"
-  else if (needed <= 0) status = "Already Reached"
-  else status = "Achievable"
+  rows += `
+    <tr style="background-color:#d0f0d0;">
+      <td colspan="3"><strong>Overall</strong></td>
+      <td><strong>${!isNaN(overallPercent) ? overallPercent.toFixed(2) + "%" : "-"}</strong></td>
+    </tr>
+  `;
 
-  document.getElementById("predictionResult").innerHTML =
-    `You need <strong>${needed.toFixed(
-      2,
-    )}%</strong> on remaining assessments to reach your goal.<br>Status: <strong>${status}</strong>`
-}
-
-function interpolateMissingGrade() {
-  const prev = parseFloat(document.getElementById("prevScore").value)
-  const next = parseFloat(document.getElementById("nextScore").value)
-  if (isNaN(prev) || isNaN(next)) {
-    alert("Enter valid scores.")
-    return
-  }
-
-  const estimate = (prev + next) / 2
-  document.getElementById("interpolatedResult").innerText =
-    `Estimated missing grade: ${estimate.toFixed(2)}%`
-}
-
-function updateChart() {
-  const ctx = document.getElementById("gradeChart").getContext("2d")
-  const labels = assessments.map((a) => a.name)
-  const data = assessments.map((a) => a.score)
-
-  if (window.gradeChart) window.gradeChart.destroy()
-
-  window.gradeChart = new Chart(ctx, {
-    type: "line",
-    data: {
-      labels,
-      datasets: [
-        {
-          label: "Grade Progression",
-          data,
-          borderColor: "green",
-          fill: false,
-          tension: 0.1,
-        },
-      ],
-    },
-    options: {
-      scales: {
-        y: {
-          beginAtZero: true,
-          max: 100,
-        },
-      },
-    },
-  })
+  document.getElementById("resultsContainer").innerHTML = `
+    <h3>Subject: ${subject || "(not set)"}</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Category</th>
+          <th>Assessment</th>
+          <th>Weight</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>${rows}</tbody>
+    </table>
+  `;
 }
