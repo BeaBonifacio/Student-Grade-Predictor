@@ -1,0 +1,30 @@
+<h1>🎯 Student Grade Predictor</h1>
+
+<h2>1. Input Known Grades</h2>
+<div>
+  <input id="name" placeholder="Assessment Name" />
+  <input id="score" type="number" placeholder="Score" />
+  <input id="weight" type="number" placeholder="Weight (%)" />
+  <button onclick="addAssessment()">Add</button>
+</div>
+
+<ul id="assessmentList"></ul>
+
+<h2>2. Set Goal Grade</h2>
+<input id="goal" type="number" placeholder="Target Final Grade" />
+<button onclick="predictNeededGrade()">Predict Needed Grade</button>
+
+<p id="predictionResult"></p>
+
+<h2>3. Interpolate Missing Grade</h2>
+<p>Enter known scores around the missing one:</p>
+<input id="prevScore" type="number" placeholder="Previous Score" />
+<input id="nextScore" type="number" placeholder="Next Score" />
+<button onclick="interpolateMissingGrade()">Estimate Missing Grade</button>
+
+<p id="interpolatedResult"></p>
+
+<h2>4. Grade Progress Chart</h2>
+<div id="chart-container">
+  <canvas id="gradeChart"></canvas>
+</div>
