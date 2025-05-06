@@ -1,0 +1,20 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+input,
+button {
+  margin: 5px;
+}
+
+#chart-container {
+  width: 600px;
+  margin-top: 20px;
+}
+
+.predicted {
+  color: blue;
+  font-style: italic;
+}
+
