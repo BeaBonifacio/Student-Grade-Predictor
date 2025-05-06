@@ -2,45 +2,42 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Student Grade Predictor</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Live Grade Predictor</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
   <header>
-    <h1>Student Grade Predictor</h1>
+    <h1>📘 Live Student Grade Predictor</h1>
   </header>
 
   <main class="container">
     <section class="panel left-panel">
-      <h2>1. Input Known Grades</h2>
-      <div class="form-group">
-        <input id="name" placeholder="Assessment Name" />
-        <input id="score" type="number" placeholder="Score" />
+      <h2>1. Enter Subject</h2>
+      <input id="subjectName" placeholder="e.g. Chemistry" />
+      <button onclick="startSubject()">Start Subject</button>
+
+      <div id="assessmentSection" style="display:none;">
+        <h2>2. Add Assessments</h2>
+        <select id="category">
+          <option>Activities</option>
+          <option>Quizzes</option>
+          <option>Exams</option>
+          <option>Laboratory</option>
+        </select>
+        <input id="assessmentName" placeholder="Assessment Name" />
         <input id="weight" type="number" placeholder="Weight (%)" />
-        <button onclick="addAssessment()">Add</button>
+        <input id="score" type="number" placeholder="Score (leave blank if missing)" />
+        <button onclick="addAssessment()">Add Assessment</button>
+
+        <h2>3. Set Goal Grade</h2>
+        <input id="goal" type="number" placeholder="Target Final Grade" oninput="renderTable()" />
       </div>
-      <ul id="assessmentList"></ul>
-
-      <h2>2. Set Goal Grade</h2>
-      <input id="goal" type="number" placeholder="Target Final Grade" />
-      <button onclick="predictNeededGrade()">Predict Needed Grade</button>
-      <p id="predictionResult"></p>
-
-      <h2>3. Interpolate Missing Grade</h2>
-      <p>Enter scores before and after the missing one:</p>
-      <input id="prevScore" type="number" placeholder="Previous Score" />
-      <input id="nextScore" type="number" placeholder="Next Score" />
-      <button onclick="interpolateMissingGrade()">Estimate Missing Grade</button>
-      <p id="interpolatedResult"></p>
     </section>
 
     <section class="panel right-panel">
-      <h2>4. Grade Progress Chart</h2>
-      <div id="chart-container">
-        <canvas id="gradeChart"></canvas>
-      </div>
+      <h2>📊 Grade Table & Results</h2>
+      <div id="resultsContainer"></div>
     </section>
   </main>
 
