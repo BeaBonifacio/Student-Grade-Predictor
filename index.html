@@ -8,36 +8,41 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
-  <h1>🎯 Student Grade Predictor</h1>
+  <header>
+    <h1>🎯 Student Grade Predictor</h1>
+  </header>
 
-  <h2>1. Input Known Grades</h2>
-  <div>
-    <input id="name" placeholder="Assessment Name" />
-    <input id="score" type="number" placeholder="Score" />
-    <input id="weight" type="number" placeholder="Weight (%)" />
-    <button onclick="addAssessment()">Add</button>
-  </div>
+  <main class="container">
+    <section class="panel left-panel">
+      <h2>1. Input Known Grades</h2>
+      <div class="form-group">
+        <input id="name" placeholder="Assessment Name" />
+        <input id="score" type="number" placeholder="Score" />
+        <input id="weight" type="number" placeholder="Weight (%)" />
+        <button onclick="addAssessment()">Add</button>
+      </div>
+      <ul id="assessmentList"></ul>
 
-  <ul id="assessmentList"></ul>
+      <h2>2. Set Goal Grade</h2>
+      <input id="goal" type="number" placeholder="Target Final Grade" />
+      <button onclick="predictNeededGrade()">Predict Needed Grade</button>
+      <p id="predictionResult"></p>
 
-  <h2>2. Set Goal Grade</h2>
-  <input id="goal" type="number" placeholder="Target Final Grade" />
-  <button onclick="predictNeededGrade()">Predict Needed Grade</button>
+      <h2>3. Interpolate Missing Grade</h2>
+      <p>Enter scores before and after the missing one:</p>
+      <input id="prevScore" type="number" placeholder="Previous Score" />
+      <input id="nextScore" type="number" placeholder="Next Score" />
+      <button onclick="interpolateMissingGrade()">Estimate Missing Grade</button>
+      <p id="interpolatedResult"></p>
+    </section>
 
-  <p id="predictionResult"></p>
-
-  <h2>3. Interpolate Missing Grade</h2>
-  <p>Enter known scores around the missing one:</p>
-  <input id="prevScore" type="number" placeholder="Previous Score" />
-  <input id="nextScore" type="number" placeholder="Next Score" />
-  <button onclick="interpolateMissingGrade()">Estimate Missing Grade</button>
-
-  <p id="interpolatedResult"></p>
-
-  <h2>4. Grade Progress Chart</h2>
-  <div id="chart-container">
-    <canvas id="gradeChart"></canvas>
-  </div>
+    <section class="panel right-panel">
+      <h2>4. Grade Progress Chart</h2>
+      <div id="chart-container">
+        <canvas id="gradeChart"></canvas>
+      </div>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
