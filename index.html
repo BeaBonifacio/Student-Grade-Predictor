@@ -3,19 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Live Grade Predictor</title>
+  <title>🎀 Grade Predictor</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
   <header>
-    <h1>📘 Live Student Grade Predictor</h1>
+    <h1>🎀 Student Grade Predictor</h1>
   </header>
 
   <main class="container">
-    <section class="panel left-panel">
+    <section class="panel input-panel">
       <h2>1. Enter Subject</h2>
-      <input id="subjectName" placeholder="e.g. Chemistry" />
-      <button onclick="startSubject()">Start Subject</button>
+      <input id="subjectName" placeholder="e.g. Mathematics" />
+      <button onclick="startSubject()">Start</button>
 
       <div id="assessmentSection" style="display:none;">
         <h2>2. Add Assessments</h2>
@@ -26,17 +26,18 @@
           <option>Laboratory</option>
         </select>
         <input id="assessmentName" placeholder="Assessment Name" />
+        <input id="perfectScore" type="number" placeholder="Perfect Score" />
         <input id="weight" type="number" placeholder="Weight (%)" />
-        <input id="score" type="number" placeholder="Score (leave blank if missing)" />
-        <button onclick="addAssessment()">Add Assessment</button>
+        <input id="score" type="number" placeholder="Your Score (leave blank if missing)" />
+        <button onclick="addAssessment()">Add</button>
 
         <h2>3. Set Goal Grade</h2>
-        <input id="goal" type="number" placeholder="Target Final Grade" oninput="renderTable()" />
+        <input id="goal" type="number" placeholder="Target Grade" oninput="renderTable()" />
       </div>
     </section>
 
-    <section class="panel right-panel">
-      <h2>📊 Grade Table & Results</h2>
+    <section class="panel table-panel">
+      <h2>📋 Grade Table</h2>
       <div id="resultsContainer"></div>
     </section>
   </main>
