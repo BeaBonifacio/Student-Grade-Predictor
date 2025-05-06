@@ -1,20 +1,93 @@
+/* Global Theme Colors */
+:root {
+  --navy: #0a2342;
+  --light-blue: #a8d0e6;
+  --sky-blue: #374785;
+  --black: #1f1f1f;
+  --white: #f0f0f0;
+}
+
 body {
-  font-family: Arial, sans-serif;
-  margin: 20px;
+  margin: 0;
+  font-family: 'Segoe UI', sans-serif;
+  background-color: var(--navy);
+  color: var(--white);
+}
+
+header {
+  background-color: var(--sky-blue);
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  font-size: 2rem;
+  color: var(--light-blue);
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 20px;
+  gap: 20px;
+}
+
+.panel {
+  background-color: var(--black);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(160, 200, 255, 0.2);
+  flex: 1;
+  min-width: 300px;
+}
+
+.left-panel {
+  flex: 2;
+}
+
+.right-panel {
+  flex: 3;
 }
 
 input,
 button {
-  margin: 5px;
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+}
+
+input {
+  width: calc(100% - 20px);
+  background-color: var(--white);
+  color: var(--black);
+}
+
+button {
+  background-color: var(--sky-blue);
+  color: var(--white);
+  cursor: pointer;
+  width: 100%;
+}
+
+button:hover {
+  background-color: var(--light-blue);
+  color: var(--black);
+}
+
+#assessmentList {
+  list-style: none;
+  padding-left: 0;
 }
 
 #chart-container {
-  width: 600px;
+  width: 100%;
+  max-width: 600px;
   margin-top: 20px;
 }
 
-.predicted {
-  color: blue;
-  font-style: italic;
+p {
+  margin-top: 10px;
 }
-
