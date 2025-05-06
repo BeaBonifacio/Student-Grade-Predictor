@@ -1,91 +1,67 @@
-:root {
-  --navy: #0a2342;
-  --light-blue: #a8d0e6;
-  --sky-blue: #374785;
-  --black: #1f1f1f;
-  --white: #f0f0f0;
-}
-
 body {
   margin: 0;
   font-family: 'Segoe UI', sans-serif;
-  background-color: var(--navy);
-  color: var(--white);
+  background-color: #fff0f5;
+  color: #333;
 }
 
 header {
-  background-color: var(--sky-blue);
-  padding: 20px;
+  background-color: #ffc0cb;
+  padding: 1em;
   text-align: center;
-}
-
-h1 {
-  margin: 0;
-  font-size: 2rem;
-  color: var(--light-blue);
+  color: white;
 }
 
 .container {
   display: flex;
+  flex-direction: row;
+  padding: 1em;
+  gap: 1em;
   flex-wrap: wrap;
-  padding: 20px;
-  gap: 20px;
 }
 
 .panel {
-  background-color: var(--black);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 0 10px rgba(160, 200, 255, 0.2);
+  background-color: white;
+  border: 2px solid #ffb6c1;
+  border-radius: 12px;
+  padding: 1em;
   flex: 1;
-  min-width: 320px;
-}
-
-.left-panel {
-  flex: 2;
-}
-
-.right-panel {
-  flex: 3;
-  overflow-x: auto;
+  min-width: 300px;
+  box-shadow: 0 0 10px rgba(255, 182, 193, 0.3);
 }
 
 input, select, button {
   display: block;
+  margin: 0.5em 0;
+  padding: 0.5em;
   width: 100%;
-  padding: 10px;
-  margin: 8px 0;
-  border-radius: 5px;
-  border: none;
-  font-size: 1rem;
-}
-
-input, select {
-  background-color: var(--white);
-  color: var(--black);
+  border-radius: 6px;
+  border: 1px solid #ffb6c1;
 }
 
 button {
-  background-color: var(--sky-blue);
-  color: var(--white);
+  background-color: #ff69b4;
+  color: white;
+  font-weight: bold;
   cursor: pointer;
 }
 
 button:hover {
-  background-color: var(--light-blue);
-  color: var(--black);
+  background-color: #ff1493;
 }
 
 table {
   width: 100%;
   border-collapse: collapse;
-  margin-top: 20px;
-  background: #fefefe;
-  color: #000;
+  margin-top: 1em;
 }
 
 th, td {
-  padding: 8px;
-  border: 1px solid #ccc;
+  border: 1px solid #ffa6c9;
+  padding: 0.5em;
   text-align: center;
+}
+
+th {
+  background-color: #ffe4e1;
 }
