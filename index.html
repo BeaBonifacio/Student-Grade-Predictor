@@ -28,6 +28,7 @@
         <input id="assessmentName" placeholder="Assessment Name" />
         <input id="perfectScore" type="number" placeholder="Perfect Score" />
         <input id="weight" type="number" placeholder="Weight (%)" />
+        <div id="weightStatus" style="margin-top:0.5em; font-weight:bold;"></div>
         <input id="score" type="number" placeholder="Your Score (leave blank if missing)" />
         <button onclick="addAssessment()">Add</button>
 
@@ -40,6 +41,11 @@
       <h2>📋 Grade Table</h2>
       <div id="resultsContainer"></div>
     </section>
+    <div id="solutionPanel" class="solutionpanel">
+      <h3>📊 Calculation Steps</h3>
+     <div id="solutionContent">Solutions and steps will appear here based on your inputs.</div>
+</div>
+
   </main>
 
   <script src="script.js"></script>
